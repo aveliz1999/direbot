@@ -3,6 +3,7 @@ import {discordConfig} from "../config";
 import AddServerCommand from "./commands/admin/AddServerCommand";
 import initSequelize from "./sequelize";
 import initUtils from './util';
+import initWebhooks from './webhooks';
 
 initSequelize();
 
@@ -21,6 +22,8 @@ client.registry
 client.on('ready', async () => {
     initUtils(client);
     console.log(`Logged in as ${client.user.tag}`);
+
+    initWebhooks();
 });
 
 client.login(discordConfig.apiToken);
