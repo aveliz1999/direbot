@@ -1,0 +1,20 @@
+{
+  "name": "direbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "discord.js-commando": "^0.12.3",
+    "ts-node": "^10.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  }
+}
