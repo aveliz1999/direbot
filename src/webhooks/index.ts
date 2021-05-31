@@ -7,7 +7,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 import chatRouter from './chat';
+import statusRouter from './status';
+
 app.use('/chat', chatRouter);
+app.use('/status', statusRouter);
 
 export default function init() {
     const port = process.env.PORT || '3000';
