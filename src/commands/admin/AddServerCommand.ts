@@ -1,6 +1,8 @@
 import {ArgumentCollectorResult, Client, Command, CommandoMessage} from "discord.js-commando";
 import {CategoryChannel, Role, TextChannel} from 'discord.js';
 import MinecraftServer from "../../models/MinecraftServer";
+import {randomBytes} from 'crypto';
+import {promisify} from "util";
 
 export default class AddServerCommand extends Command {
 
@@ -12,6 +14,7 @@ export default class AddServerCommand extends Command {
             memberName: 'addserver',
             description: 'Add a new server',
             clientPermissions: ['MANAGE_CHANNELS'],
+            userPermissions: ['ADMINISTRATOR'],
             args: [
                 {
                     key: 'name',
@@ -34,7 +37,7 @@ export default class AddServerCommand extends Command {
         let category: CategoryChannel;
         let statusChannel: TextChannel;
         let chatChannel: TextChannel;
-
+        let apiKey: string;
 
         try {
             category = await channelManager.create(args.name, {
@@ -84,10 +87,17 @@ export default class AddServerCommand extends Command {
             return message.reply('Error occurred while creating the chat channel');
         }
 
+        try{
+            const generated = await promisify(randomBytes)(12);
+            apiKey = generated.toString('base64');
+        }
+        catch(err) {
+            return message.reply('Error occurred while generating the API key');
+        }
+
         try {
             await MinecraftServer.create({
-                // TODO generate secure API key when creating new server
-                apiKey: '',
+                apiKey,
                 name: args.name,
                 statusChannel: statusChannel.id,
                 chatChannel: chatChannel.id
