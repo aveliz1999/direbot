@@ -1,4 +1,5 @@
-import {Table, Column, Model, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement} from 'sequelize-typescript';
+import {Table, Column, Model, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement, ForeignKey} from 'sequelize-typescript';
+import StatusMessage from "./StatusMessage";
 
 interface MinecraftServerAttributes {
     id: number,
@@ -20,6 +21,7 @@ interface MinecraftServerCreationAttributes {
 @Table
 export default class MinecraftServer extends Model<MinecraftServerAttributes, MinecraftServerCreationAttributes> {
 
+    @ForeignKey(() => StatusMessage)
     @PrimaryKey
     @AutoIncrement
     @Column
