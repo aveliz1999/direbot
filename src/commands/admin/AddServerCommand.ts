@@ -3,6 +3,7 @@ import {CategoryChannel, Role, TextChannel} from 'discord.js';
 import MinecraftServer from "../../models/MinecraftServer";
 import {randomBytes} from 'crypto';
 import {promisify} from "util";
+import {webhooksConfig} from "../../../config";
 
 export default class AddServerCommand extends Command {
 
@@ -57,6 +58,10 @@ export default class AddServerCommand extends Command {
                         id: message.guild.roles.everyone.id,
                         deny: ['SEND_MESSAGES'],
                         allow: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
+                    },
+                    {
+                        id: this.client.user.id,
+                        allow: ['SEND_MESSAGES']
                     }
                 ]
             });
@@ -79,6 +84,10 @@ export default class AddServerCommand extends Command {
                     {
                         id: args.authenticatedRole.id,
                         allow: ['SEND_MESSAGES']
+                    },
+                    {
+                        id: this.client.user.id,
+                        allow: ['SEND_MESSAGES']
                     }
                 ]
             });
@@ -95,8 +104,9 @@ export default class AddServerCommand extends Command {
             return message.reply('Error occurred while generating the API key');
         }
 
+        let server: MinecraftServer;
         try {
-            await MinecraftServer.create({
+            server = await MinecraftServer.create({
                 apiKey,
                 name: args.name,
                 statusChannel: statusChannel.id,
@@ -107,7 +117,16 @@ export default class AddServerCommand extends Command {
             return message.reply('Error occurred while creating the database entry');
         }
 
-        return message.reply('Successfully created the new server');
+        let webhookEndpoint = webhooksConfig.webhooksDomain;
+        if(webhookEndpoint.endsWith('/')) {
+            webhookEndpoint = webhookEndpoint.substring(0, webhookEndpoint.length - 1);
+        }
+
+        return message.reply('Successfully created the new server\n' +
+            `Your server ID is: \`${server.id}\`\n` +
+            `Your api key: \`${server.apiKey}\`\n` +
+            `Webhook endpoint for chat: ${webhookEndpoint}/chat\n` +
+            `Webhook endpoint for status: ${webhookEndpoint}/status`);
     }
 
 }
