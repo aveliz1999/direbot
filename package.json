@@ -12,11 +12,16 @@
   "dependencies": {
     "discord.js": "^12.5.3",
     "discord.js-commando": "^0.12.3",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2",
+    "sequelize-typescript": "^2.1.0",
     "ts-node": "^10.0.0",
     "yaml": "^1.10.2"
   },
   "devDependencies": {
+    "@types/sequelize": "^4.28.9",
     "@types/yaml": "^1.9.7",
+    "sequelize-cli": "^6.2.0",
     "typescript": "^4.3.2"
   }
 }

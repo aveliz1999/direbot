@@ -1,0 +1,5 @@
+username: "direbot"
+password: "direbot"
+database: "direbot"
+host: "localhost"
+dialect: "mysql"
