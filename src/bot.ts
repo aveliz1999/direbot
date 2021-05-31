@@ -2,6 +2,7 @@ import {Client} from 'discord.js-commando';
 import {discordConfig} from "../config";
 import AddServerCommand from "./commands/admin/AddServerCommand";
 import initSequelize from "./sequelize";
+import initUtils from './util';
 
 initSequelize();
 
@@ -18,6 +19,7 @@ client.registry
     .registerCommands([AddServerCommand])
 
 client.on('ready', async () => {
+    initUtils(client);
     console.log(`Logged in as ${client.user.tag}`);
 });
 
