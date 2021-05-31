@@ -1,6 +1,16 @@
-import {Table, Column, Model, PrimaryKey, CreatedAt, UpdatedAt} from 'sequelize-typescript';
+import {Table, Column, Model, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement} from 'sequelize-typescript';
 
 interface MinecraftServerAttributes {
+    id: number,
+    apiKey: string,
+    name: string,
+    statusChannel: string,
+    chatChannel: string,
+    createdAt: Date,
+    updatedAt: Date
+}
+
+interface MinecraftServerCreationAttributes {
     apiKey: string,
     name: string,
     statusChannel: string,
@@ -8,9 +18,10 @@ interface MinecraftServerAttributes {
 }
 
 @Table
-export default class MinecraftServer extends Model<MinecraftServerAttributes> {
+export default class MinecraftServer extends Model<MinecraftServerAttributes, MinecraftServerCreationAttributes> {
 
     @PrimaryKey
+    @AutoIncrement
     @Column
     id: number;
 
