@@ -9,5 +9,11 @@ export default function init(initClient: CommandoClient) {
 
 export async function sendMessage(channelId: Snowflake, content: APIMessageContentResolvable | MessageEmbed) {
     const channel = (await client.channels.fetch(channelId)) as TextChannel;
-    await channel.send(content);
+    return await channel.send(content);
+}
+
+export async function deleteMessage(channelId: Snowflake, messageId: Snowflake) {
+    const channel = (await client.channels.fetch(channelId)) as TextChannel;
+    const message = await channel.messages.fetch(messageId);
+    return await message.delete();
 }
