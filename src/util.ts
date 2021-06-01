@@ -1,5 +1,6 @@
 import {CommandoClient} from "discord.js-commando";
 import {APIMessageContentResolvable, MessageEmbed, Snowflake, TextChannel} from "discord.js";
+import Task from "./models/Task";
 
 let client: CommandoClient;
 
@@ -16,4 +17,23 @@ export async function deleteMessage(channelId: Snowflake, messageId: Snowflake) 
     const channel = (await client.channels.fetch(channelId)) as TextChannel;
     const message = await channel.messages.fetch(messageId);
     return await message.delete();
+}
+
+export type WhisperTask = {
+    type: 'whisper',
+    target: string,
+    message: string
+}
+
+export type CommandTask = {
+    type: 'command',
+    command: string
+}
+
+export async function addTask(serverId: Snowflake, apiKey: string, task: WhisperTask | CommandTask) {
+    await Task.create({
+        serverId,
+        apiKey,
+        task
+    });
 }
