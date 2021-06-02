@@ -13,9 +13,6 @@ router.post('/', async (req, res) => {
             .integer()
             .positive()
             .required(),
-        apiKey: Joi.string()
-            .length(16)
-            .required(),
         players: Joi.array()
             .allow(Joi.object({
                 minecraftUsername: Joi.string()
@@ -31,7 +28,6 @@ router.post('/', async (req, res) => {
     try{
         const data: {
             serverId: number,
-            apiKey: string,
             players: {
                 minecraftUsername: string,
                 minecraftUuid: string
@@ -47,7 +43,7 @@ router.post('/', async (req, res) => {
             return res.status(404).send({message: 'No server with that ID found.'});
         }
 
-        if(server.apiKey !== data.apiKey) {
+        if(server.apiKey !== req.apiKey) {
             return res.status(401).send({message: 'Invalid API key'});
         }
 

@@ -3,18 +3,17 @@ import Joi from 'joi';
 import MinecraftServer from "../models/MinecraftServer";
 import {sendMessage} from "../util";
 import {MessageEmbed} from "discord.js";
+import validApiKey from "./middleware/validApiKey";
 
 const router = express.Router();
 
+router.use(validApiKey);
+
 router.post('/', async (req, res) => {
-    console.log(req.body);
     const schema = Joi.object({
         serverId: Joi.number()
             .integer()
             .positive()
-            .required(),
-        apiKey: Joi.string()
-            .length(16)
             .required(),
         minecraftUsername: Joi.string()
             .min(3)
@@ -31,7 +30,6 @@ router.post('/', async (req, res) => {
     try{
         const data: {
             serverId: number,
-            apiKey: string,
             minecraftUsername: string,
             minecraftUuid: string,
             message: string
@@ -46,7 +44,7 @@ router.post('/', async (req, res) => {
             return res.status(404).send({message: 'No server with that ID found.'});
         }
 
-        if(server.apiKey !== data.apiKey) {
+        if(server.apiKey !== req.apiKey) {
             return res.status(401).send({message: 'Invalid API key'});
         }
 
