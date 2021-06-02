@@ -1,6 +1,7 @@
 import {Client} from 'discord.js-commando';
 import {discordConfig} from "../config";
 import AddServerCommand from "./commands/admin/AddServerCommand";
+import ExecuteCommand from "./commands/admin/ExecuteCommand"
 import initSequelize from "./sequelize";
 import initUtils from './util';
 import initWebhooks from './webhooks';
@@ -17,7 +18,7 @@ client.registry
         ['admin', 'Administration commands']
     ])
     .registerDefaults()
-    .registerCommands([AddServerCommand])
+    .registerCommands([AddServerCommand, ExecuteCommand])
 
 client.on('ready', async () => {
     initUtils(client);
