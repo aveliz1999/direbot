@@ -2,6 +2,8 @@ import {ArgumentCollectorResult, Client, Command, CommandoMessage} from "discord
 import MinecraftServer from "../../models/MinecraftServer";
 import AuthenticatedUser from "../../models/AuthenticatedUser";
 import StatusMessage from "../../models/StatusMessage";
+import AuthenticationCommand from "../../models/AuthenticationCommand";
+import Task from "../../models/Task";
 
 export default class AddServerCommand extends Command {
 
@@ -58,6 +60,20 @@ export default class AddServerCommand extends Command {
         await existingUser.update({
             minecraftUuid: online.minecraftUuid
         });
+
+        const authenticationCommands = await AuthenticationCommand.findAll({
+            where: {
+                serverId: server.id
+            }
+        });
+        await Promise.all(authenticationCommands.map(com => Task.create({
+            serverId: server.id,
+            apiKey: server.apiKey,
+            task: {
+                type: 'command',
+                command: com.command.replaceAll('{USER}', online.minecraftUsername)
+            }
+        })));
 
         // TODO add the role to the user
         //await message.guild.member(message.author).roles.add(server.authenticatedRole);
