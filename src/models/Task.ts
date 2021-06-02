@@ -16,7 +16,7 @@ import {CommandTask, WhisperTask} from "../util";
 interface TaskAttributes {
     id: number,
     apiKey: string,
-    serverId: string,
+    serverId: number,
     task: WhisperTask | CommandTask,
     createdAt: Date,
     updatedAt: Date
@@ -24,7 +24,7 @@ interface TaskAttributes {
 
 interface TaskCreationAttributes {
     apiKey: string,
-    serverId: string,
+    serverId: number,
     task: WhisperTask | CommandTask,
 }
 

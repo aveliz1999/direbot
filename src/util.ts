@@ -30,7 +30,7 @@ export type CommandTask = {
     command: string
 }
 
-export async function addTask(serverId: Snowflake, apiKey: string, task: WhisperTask | CommandTask) {
+export async function addTask(serverId: number, apiKey: string, task: WhisperTask | CommandTask) {
     await Task.create({
         serverId,
         apiKey,
