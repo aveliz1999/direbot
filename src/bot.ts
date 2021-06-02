@@ -2,6 +2,8 @@ import {Client} from 'discord.js-commando';
 import {discordConfig} from "../config";
 import AddServerCommand from "./commands/admin/AddServerCommand";
 import ExecuteCommand from "./commands/admin/ExecuteCommand"
+import AuthenticateCommand from "./commands/auth/AuthenticateCommand"
+import ConfirmCommand from "./commands/auth/ConfirmCommand"
 import initSequelize from "./sequelize";
 import initUtils from './util';
 import initWebhooks from './webhooks';
@@ -15,10 +17,11 @@ const client = new Client({
 
 client.registry
     .registerGroups([
-        ['admin', 'Administration commands']
+        ['admin', 'Administration commands'],
+        ['authentication', 'Authentication commands']
     ])
     .registerDefaults()
-    .registerCommands([AddServerCommand, ExecuteCommand])
+    .registerCommands([AddServerCommand, ExecuteCommand, AuthenticateCommand, ConfirmCommand])
 
 client.on('ready', async () => {
     initUtils(client);
