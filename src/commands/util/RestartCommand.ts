@@ -75,7 +75,7 @@ export default class AddServerCommand extends Command {
 
         sentMessage.awaitReactions(
             (reaction, user) => reaction.emoji.name == '✅' || reaction.emoji.name == '❌', {
-                time: 5000
+                time: 60000
             })
             .then(async (reactions: Collection<Snowflake, MessageReaction>)  => {
                 const responses = reactions.map((reaction, snowflake) => {
