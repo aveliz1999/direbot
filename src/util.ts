@@ -1,6 +1,7 @@
 import {CommandoClient} from "discord.js-commando";
 import {APIMessageContentResolvable, MessageEmbed, Snowflake, TextChannel} from "discord.js";
 import Task from "./models/Task";
+import MinecraftServer from "./models/MinecraftServer";
 
 let client: CommandoClient;
 
@@ -43,4 +44,9 @@ export async function addTask(serverId: number, apiKey: string, task: TaskType) 
         apiKey,
         task
     });
+}
+
+export async function getDiscordUserFromId(id: Snowflake, channelId: string) {
+    const channel = (await client.channels.fetch(channelId)) as TextChannel;
+    return channel.guild.members.fetch(id);
 }
