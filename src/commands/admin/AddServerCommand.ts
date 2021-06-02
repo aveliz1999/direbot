@@ -140,7 +140,8 @@ export default class AddServerCommand extends Command {
                 statusChannel: statusChannel.id,
                 chatChannel: chatChannel.id,
                 commandsChannel: commandsChannel.id,
-                adminChannel: adminChannel.id
+                adminChannel: adminChannel.id,
+                authenticatedRole: args.authenticatedRole.id
             })
         }
         catch(err) {

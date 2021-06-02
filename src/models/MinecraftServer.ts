@@ -12,6 +12,7 @@ interface MinecraftServerAttributes {
     chatChannel: string,
     commandsChannel: string,
     adminChannel: string,
+    authenticatedRole: string,
     createdAt: Date,
     updatedAt: Date
 }
@@ -22,7 +23,8 @@ interface MinecraftServerCreationAttributes {
     statusChannel: string,
     chatChannel: string,
     commandsChannel: string,
-    adminChannel: string
+    adminChannel: string,
+    authenticatedRole: string
 }
 
 @Table
@@ -54,6 +56,9 @@ export default class MinecraftServer extends Model<MinecraftServerAttributes, Mi
 
     @Column
     adminChannel: string
+
+    @Column
+    authenticatedRole: string
 
     @CreatedAt
     @Column

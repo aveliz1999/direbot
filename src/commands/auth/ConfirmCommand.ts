@@ -14,6 +14,7 @@ export default class AddServerCommand extends Command {
             group: 'authentication',
             memberName: 'confirm',
             description: 'Confirm the code that was whispered to your minecraft character',
+            clientPermissions: ['MANAGE_ROLES'],
             args: [
                 {
                     key: 'code',
@@ -75,8 +76,7 @@ export default class AddServerCommand extends Command {
             }
         })));
 
-        // TODO add the role to the user
-        //await message.guild.member(message.author).roles.add(server.authenticatedRole);
+        await message.guild.member(message.author).roles.add(server.authenticatedRole);
         await message.channel.send('Successfully authenticated! The authenticated role has been added to you.');
     }
 
