@@ -13,9 +13,10 @@ router.get('/', async (req, res) => {
                 apiKey: req.apiKey
             },
             limit: 5
-        })
+        });
+        await Promise.all(tasks.map(t => t.destroy()));
 
-        return res.status(200).send(tasks.map(t => t.task));
+        res.status(200).send(tasks.map(t => t.task));
     }
     catch(err) {
         console.error(err);
