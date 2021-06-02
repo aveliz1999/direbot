@@ -2,6 +2,7 @@ import {Table, Column, Model, PrimaryKey, CreatedAt, UpdatedAt, AutoIncrement, F
 import StatusMessage from "./StatusMessage";
 import Task from "./Task";
 import AuthenticatedUser from "./AuthenticatedUser";
+import AuthenticationCommand from "./AuthenticationCommand";
 
 interface MinecraftServerAttributes {
     id: number,
@@ -30,6 +31,7 @@ export default class MinecraftServer extends Model<MinecraftServerAttributes, Mi
     @ForeignKey(() => StatusMessage)
     @ForeignKey(() => Task)
     @ForeignKey(() => AuthenticatedUser)
+    @ForeignKey(() => AuthenticationCommand)
     @PrimaryKey
     @AutoIncrement
     @Column
