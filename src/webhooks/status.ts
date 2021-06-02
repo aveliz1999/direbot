@@ -1,10 +1,11 @@
 import express from 'express';
 import Joi from 'joi';
 import MinecraftServer from "../models/MinecraftServer";
-import {deleteMessage, sendMessage} from "../util";
+import {deleteMessage, getDiscordUserFromId, sendMessage} from "../util";
 import {MessageEmbed} from "discord.js";
 import StatusMessage from "../models/StatusMessage";
 import validApiKey from "./middleware/validApiKey";
+import AuthenticatedUser from "../models/AuthenticatedUser";
 
 const router = express.Router();
 router.use(validApiKey);
@@ -69,10 +70,25 @@ router.post('/', async (req, res) => {
 
         const newPlayers = data.players.filter(p => !messageIds.includes(p.minecraftUuid));
 
+        const authenticatedUsers: AuthenticatedUser[] = (await Promise.all(newPlayers.map(p => AuthenticatedUser.findOne({
+            where: {
+                serverId: server.id,
+                minecraftUuid: p.minecraftUuid
+            }
+        })))).filter(x => !!x);
+
+
         for(let {minecraftUsername, minecraftUuid} of newPlayers) {
-            const embed = new MessageEmbed()
+            let embed = new MessageEmbed()
                 .addField('Minecraft', minecraftUsername, false)
                 .setThumbnail(`https://minotar.net/avatar/${minecraftUsername}.png`);
+            const authenticated = authenticatedUsers.find(u => u.minecraftUuid == minecraftUuid);
+            if(authenticated) {
+                const discordUser = await getDiscordUserFromId(authenticated.discordId, server.commandsChannel);
+                embed = embed.addField('Discord', discordUser)
+                    .setColor(discordUser.roles.highest.color);
+            }
+
             try{
                 const message = await sendMessage(server.statusChannel, embed);
                 await StatusMessage.create({
