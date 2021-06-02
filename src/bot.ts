@@ -4,6 +4,7 @@ import AddServerCommand from "./commands/admin/AddServerCommand";
 import ExecuteCommand from "./commands/admin/ExecuteCommand"
 import AuthenticateCommand from "./commands/auth/AuthenticateCommand"
 import ConfirmCommand from "./commands/auth/ConfirmCommand"
+import BroadcastCommand from "./commands/admin/BroadcastCommand"
 import initSequelize from "./sequelize";
 import initUtils from './util';
 import initWebhooks from './webhooks';
@@ -21,7 +22,7 @@ client.registry
         ['authentication', 'Authentication commands']
     ])
     .registerDefaults()
-    .registerCommands([AddServerCommand, ExecuteCommand, AuthenticateCommand, ConfirmCommand])
+    .registerCommands([AddServerCommand, ExecuteCommand, AuthenticateCommand, ConfirmCommand, BroadcastCommand])
 
 client.on('ready', async () => {
     initUtils(client);
