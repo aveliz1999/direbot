@@ -38,6 +38,8 @@ export default class AddServerCommand extends Command {
         let category: CategoryChannel;
         let statusChannel: TextChannel;
         let chatChannel: TextChannel;
+        let commandsChannel: TextChannel;
+        let adminChannel: TextChannel;
         let apiKey: string;
 
         try {
@@ -82,12 +84,38 @@ export default class AddServerCommand extends Command {
                         allow: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
                     },
                     {
-                        id: args.authenticatedRole.id,
+                        id: this.client.user.id,
                         allow: ['SEND_MESSAGES']
+                    }
+                ]
+            });
+        }
+        catch(err) {
+            return message.reply('Error occurred while creating the chat channel');
+        }
+
+        try {
+            commandsChannel = await channelManager.create('Commands', {
+                type: 'text',
+                parent: category.id
+            });
+        }
+        catch(err) {
+            return message.reply('Error occurred while creating the chat channel');
+        }
+
+        try {
+            adminChannel = await channelManager.create('Admin-Commands', {
+                type: 'text',
+                parent: category.id,
+                permissionOverwrites: [
+                    {
+                        id: message.guild.roles.everyone.id,
+                        deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY']
                     },
                     {
                         id: this.client.user.id,
-                        allow: ['SEND_MESSAGES']
+                        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY']
                     }
                 ]
             });
@@ -110,7 +138,9 @@ export default class AddServerCommand extends Command {
                 apiKey,
                 name: args.name,
                 statusChannel: statusChannel.id,
-                chatChannel: chatChannel.id
+                chatChannel: chatChannel.id,
+                commandsChannel: commandsChannel.id,
+                adminChannel: adminChannel.id
             })
         }
         catch(err) {

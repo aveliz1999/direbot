@@ -8,6 +8,8 @@ interface MinecraftServerAttributes {
     name: string,
     statusChannel: string,
     chatChannel: string,
+    commandsChannel: string,
+    adminChannel: string,
     createdAt: Date,
     updatedAt: Date
 }
@@ -16,7 +18,9 @@ interface MinecraftServerCreationAttributes {
     apiKey: string,
     name: string,
     statusChannel: string,
-    chatChannel: string
+    chatChannel: string,
+    commandsChannel: string,
+    adminChannel: string
 }
 
 @Table
@@ -40,6 +44,12 @@ export default class MinecraftServer extends Model<MinecraftServerAttributes, Mi
 
     @Column
     chatChannel: string;
+
+    @Column
+    commandsChannel: string
+
+    @Column
+    adminChannel: string
 
     @CreatedAt
     @Column
