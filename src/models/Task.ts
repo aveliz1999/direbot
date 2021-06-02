@@ -6,18 +6,16 @@ import {
     CreatedAt,
     UpdatedAt,
     AutoIncrement,
-    ForeignKey,
     HasOne, DataType
 } from 'sequelize-typescript';
-import StatusMessage from "./StatusMessage";
 import MinecraftServer from "./MinecraftServer";
-import {CommandTask, WhisperTask} from "../util";
+import {TaskType} from "../util";
 
 interface TaskAttributes {
     id: number,
     apiKey: string,
     serverId: number,
-    task: WhisperTask | CommandTask,
+    task: TaskType,
     createdAt: Date,
     updatedAt: Date
 }
@@ -25,7 +23,7 @@ interface TaskAttributes {
 interface TaskCreationAttributes {
     apiKey: string,
     serverId: number,
-    task: WhisperTask | CommandTask,
+    task: TaskType,
 }
 
 @Table
@@ -48,7 +46,7 @@ export default class Task extends Model<TaskAttributes, TaskCreationAttributes> 
     @Column({
         type: DataType.JSON
     })
-    task: WhisperTask | CommandTask;
+    task: TaskType;
 
     @CreatedAt
     @Column

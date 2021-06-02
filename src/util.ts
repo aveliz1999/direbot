@@ -30,7 +30,14 @@ export type CommandTask = {
     command: string
 }
 
-export async function addTask(serverId: number, apiKey: string, task: WhisperTask | CommandTask) {
+export type BroadcastTask  = {
+    type: 'broadcast',
+    message: string
+}
+
+export type TaskType = WhisperTask | CommandTask | BroadcastTask
+
+export async function addTask(serverId: number, apiKey: string, task: TaskType) {
     await Task.create({
         serverId,
         apiKey,
