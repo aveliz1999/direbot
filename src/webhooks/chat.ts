@@ -1,9 +1,10 @@
 import express from 'express';
 import Joi from 'joi';
 import MinecraftServer from "../models/MinecraftServer";
-import {sendMessage} from "../util";
+import {getDiscordUserFromId, sendMessage} from "../util";
 import {MessageEmbed} from "discord.js";
 import validApiKey from "./middleware/validApiKey";
+import AuthenticatedUser from "../models/AuthenticatedUser";
 
 const router = express.Router();
 
@@ -48,8 +49,21 @@ router.post('/', async (req, res) => {
             return res.status(401).send({message: 'Invalid API key'});
         }
 
-        const embed = new MessageEmbed()
-            .addField('Minecraft', data.minecraftUsername, true)
+        const authenticated = await AuthenticatedUser.findOne({
+            where: {
+                serverId: server.id,
+                minecraftUuid: data.minecraftUuid
+            }
+        });
+
+        let embed = new MessageEmbed()
+            .addField('Minecraft', data.minecraftUsername, true);
+        if(authenticated) {
+            const discordUser = await getDiscordUserFromId(authenticated.discordId, server.commandsChannel);
+            embed = embed.addField('Discord', discordUser)
+                .setColor(discordUser.roles.highest.color)
+        }
+        embed = embed
             .addField('Text', data.message, false)
             .setThumbnail(`https://minotar.net/avatar/${data.minecraftUsername}.png`);
 
