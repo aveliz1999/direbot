@@ -1,22 +1,16 @@
 import express from 'express';
 import Task from "../models/Task";
+import validApiKey from "./middleware/validApiKey";
 
 const router = express.Router();
 
+router.use(validApiKey);
 router.get('/', async (req, res) => {
-    if(!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
-        return res.status(401).send({message: 'Invalid api key'});
-    }
-    const apiKey = req.headers.authorization.substring('Bearer '.length);
-    if(!apiKey) {
-        return res.status(401).send({message: 'Invalid api key'});
-    }
-
     try {
         const tasks = await Task.findAll({
             where: {
                 serverId: req.query.server,
-                apiKey
+                apiKey: req.apiKey
             },
             limit: 5
         })
