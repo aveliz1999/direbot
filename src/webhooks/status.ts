@@ -4,8 +4,10 @@ import MinecraftServer from "../models/MinecraftServer";
 import {deleteMessage, sendMessage} from "../util";
 import {MessageEmbed} from "discord.js";
 import StatusMessage from "../models/StatusMessage";
+import validApiKey from "./middleware/validApiKey";
 
 const router = express.Router();
+router.use(validApiKey);
 
 router.post('/', async (req, res) => {
     const schema = Joi.object({
