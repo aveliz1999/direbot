@@ -7,6 +7,7 @@ import ConfirmCommand from "./commands/auth/ConfirmCommand"
 import BroadcastCommand from "./commands/admin/BroadcastCommand"
 import RestartCommand from "./commands/util/RestartCommand"
 import AddAuthenticationTaskCommand from "./commands/admin/AddAuthenticationTaskCommand"
+import AnnounceCommand from "./commands/admin/AnnounceCommand"
 import initSequelize from "./sequelize";
 import initUtils from './util';
 import initWebhooks from './webhooks';
@@ -32,7 +33,8 @@ client.registry
         ConfirmCommand,
         BroadcastCommand,
         RestartCommand,
-        AddAuthenticationTaskCommand
+        AddAuthenticationTaskCommand,
+        AnnounceCommand
     ])
 
 client.on('ready', async () => {
