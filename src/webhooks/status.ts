@@ -86,7 +86,7 @@ router.post('/', async (req, res) => {
             if(authenticated) {
                 const discordUser = await getDiscordUserFromId(authenticated.discordId, server.commandsChannel);
                 embed = embed.addField('Discord', discordUser)
-                    .setColor(discordUser.roles.highest.color);
+                    .setColor(discordUser.roles.highest.hexColor);
             }
 
             try{
