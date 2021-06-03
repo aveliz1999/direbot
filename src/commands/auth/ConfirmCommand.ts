@@ -4,6 +4,7 @@ import AuthenticatedUser from "../../models/AuthenticatedUser";
 import StatusMessage from "../../models/StatusMessage";
 import AuthenticationCommand from "../../models/AuthenticationCommand";
 import Task from "../../models/Task";
+import {TextChannel} from "discord.js";
 
 export default class AddServerCommand extends Command {
 
@@ -75,6 +76,11 @@ export default class AddServerCommand extends Command {
                 command: com.command.replaceAll('{USER}', online.minecraftUsername)
             }
         })));
+
+        const statusChannel = (await this.client.channels.fetch(server.statusChannel)) as TextChannel;
+        const statusMessage = await statusChannel.messages.fetch(online.messageId);
+        await statusMessage.delete();
+        await online.destroy();
 
         await message.guild.member(message.author).roles.add(server.authenticatedRole);
         await message.channel.send('Successfully authenticated! The authenticated role has been added to you.');
