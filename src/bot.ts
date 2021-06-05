@@ -11,6 +11,7 @@ import AnnounceCommand from "./commands/admin/AnnounceCommand"
 import initSequelize from "./sequelize";
 import initUtils from './util';
 import initWebhooks from './webhooks';
+import MysqlProvider from "./MysqlProvider";
 
 initSequelize();
 
@@ -18,6 +19,8 @@ const client = new Client({
     owner: discordConfig.owner,
     commandPrefix: discordConfig.prefix
 });
+
+client.setProvider(new MysqlProvider());
 
 client.registry
     .registerGroups([
