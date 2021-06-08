@@ -8,6 +8,7 @@ import BroadcastCommand from "./commands/admin/BroadcastCommand"
 import RestartCommand from "./commands/util/RestartCommand"
 import AddAuthenticationTaskCommand from "./commands/admin/AddAuthenticationTaskCommand"
 import AnnounceCommand from "./commands/admin/AnnounceCommand"
+import AddAmpDataCommand from "./commands/admin/AddAmpDataCommand";
 import initSequelize from "./sequelize";
 import initUtils from './util';
 import initWebhooks from './webhooks';
@@ -37,7 +38,8 @@ client.registry
         BroadcastCommand,
         RestartCommand,
         AddAuthenticationTaskCommand,
-        AnnounceCommand
+        AnnounceCommand,
+        AddAmpDataCommand
     ])
 
 client.on('ready', async () => {
