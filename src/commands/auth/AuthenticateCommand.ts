@@ -3,7 +3,7 @@ import MinecraftServer from "../../models/MinecraftServer";
 import AuthenticatedUser from "../../models/AuthenticatedUser";
 import Task from "../../models/Task";
 
-export default class AddServerCommand extends Command {
+export default class AuthenticateCommand extends Command {
 
     constructor(client: Client) {
         super(client, {

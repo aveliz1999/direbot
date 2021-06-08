@@ -75,7 +75,7 @@ export default class KillCommand extends Command {
                 const resultsEmbed = new MessageEmbed()
                     .addField('Yes Votes', authenticatedYesResponses.length, false)
                     .addField('No Votes', authenticatedNoResponses.length, false)
-                    .addField('Result', (authenticatedYesResponses.length > authenticatedNoResponses.length) ? 'Restarting...' : 'Not restarting')
+                    .addField('Result', (authenticatedYesResponses.length > authenticatedNoResponses.length) ? 'Killing...' : 'Not killing')
                     .setColor((await message.guild.members.fetch(this.client.user)).roles.highest.color);
                 await message.channel.send(resultsEmbed);
                 if(authenticatedYesResponses.length > authenticatedNoResponses.length) {

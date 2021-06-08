@@ -1,9 +1,8 @@
 import {ArgumentCollectorResult, Client, Command, CommandoMessage} from "discord.js-commando";
 import MinecraftServer from "../../models/MinecraftServer";
-import Task from "../../models/Task";
 import AuthenticationCommand from "../../models/AuthenticationCommand";
 
-export default class AddServerCommand extends Command {
+export default class AddAuthenticationTaskCommand extends Command {
 
     constructor(client: Client) {
         super(client, {

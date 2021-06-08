@@ -2,7 +2,7 @@ import {ArgumentCollectorResult, Client, Command, CommandoMessage} from "discord
 import MinecraftServer from "../../models/MinecraftServer";
 import Task from "../../models/Task";
 
-export default class AddServerCommand extends Command {
+export default class ExecuteCommand extends Command {
 
     constructor(client: Client) {
         super(client, {
@@ -23,8 +23,6 @@ export default class AddServerCommand extends Command {
 
 
     async run(message: CommandoMessage, args: {command: string}, fromPattern: boolean, result?: ArgumentCollectorResult): Promise<any> | null {
-        const channelManager = message.guild.channels;
-
         const server = await MinecraftServer.findOne({
             where: {
                 adminChannel: message.channel.id

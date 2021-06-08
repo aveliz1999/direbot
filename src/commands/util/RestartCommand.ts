@@ -5,7 +5,7 @@ import {Collection, MessageEmbed, MessageReaction, Snowflake} from "discord.js";
 import StatusMessage from "../../models/StatusMessage";
 import AuthenticatedUser from "../../models/AuthenticatedUser";
 
-export default class AddServerCommand extends Command {
+export default class RestartCommand extends Command {
 
     constructor(client: Client) {
         super(client, {

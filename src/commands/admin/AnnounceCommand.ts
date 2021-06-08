@@ -2,7 +2,7 @@ import {ArgumentCollectorResult, Client, Command, CommandoMessage} from "discord
 import MinecraftServer from "../../models/MinecraftServer";
 import Task from "../../models/Task";
 
-export default class AddServerCommand extends Command {
+export default class AnnounceCommand extends Command {
 
     constructor(client: Client) {
         super(client, {

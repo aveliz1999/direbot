@@ -6,7 +6,7 @@ import AuthenticationCommand from "../../models/AuthenticationCommand";
 import Task from "../../models/Task";
 import {TextChannel} from "discord.js";
 
-export default class AddServerCommand extends Command {
+export default class ConfirmCommand extends Command {
 
     constructor(client: Client) {
         super(client, {
