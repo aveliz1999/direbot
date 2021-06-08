@@ -13,6 +13,7 @@ import initSequelize from "./sequelize";
 import initUtils from './util';
 import initWebhooks from './webhooks';
 import MysqlProvider from "./MysqlProvider";
+import StartCommand from "./commands/util/StartCommand";
 
 initSequelize();
 
@@ -39,7 +40,8 @@ client.registry
         RestartCommand,
         AddAuthenticationTaskCommand,
         AnnounceCommand,
-        AddAmpDataCommand
+        AddAmpDataCommand,
+        StartCommand
     ])
 
 client.on('ready', async () => {
