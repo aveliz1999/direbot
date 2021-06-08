@@ -141,7 +141,10 @@ export default class AddServerCommand extends Command {
                 chatChannel: chatChannel.id,
                 commandsChannel: commandsChannel.id,
                 adminChannel: adminChannel.id,
-                authenticatedRole: args.authenticatedRole.id
+                authenticatedRole: args.authenticatedRole.id,
+                ampServerEndpoint: null,
+                ampServerUsername: null,
+                ampServerPassword: null
             })
         }
         catch(err) {

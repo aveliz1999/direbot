@@ -13,6 +13,9 @@ interface MinecraftServerAttributes {
     commandsChannel: string,
     adminChannel: string,
     authenticatedRole: string,
+    ampServerEndpoint: string | null,
+    ampServerUsername: string | null,
+    ampServerPassword: string | null,
     createdAt: Date,
     updatedAt: Date
 }
@@ -24,7 +27,10 @@ interface MinecraftServerCreationAttributes {
     chatChannel: string,
     commandsChannel: string,
     adminChannel: string,
-    authenticatedRole: string
+    authenticatedRole: string,
+    ampServerEndpoint: string | null,
+    ampServerUsername: string | null,
+    ampServerPassword: string | null,
 }
 
 @Table
@@ -59,6 +65,15 @@ export default class MinecraftServer extends Model<MinecraftServerAttributes, Mi
 
     @Column
     authenticatedRole: string
+
+    @Column
+    ampServerEndpoint: string | null
+
+    @Column
+    ampServerUsername: string | null
+
+    @Column
+    ampServerPassword: string | null
 
     @CreatedAt
     @Column
