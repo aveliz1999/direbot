@@ -14,6 +14,7 @@ import initUtils from './util';
 import initWebhooks from './webhooks';
 import MysqlProvider from "./MysqlProvider";
 import StartCommand from "./commands/util/StartCommand";
+import KillCommand from "./commands/util/KillCommand";
 
 initSequelize();
 
@@ -41,7 +42,8 @@ client.registry
         AddAuthenticationTaskCommand,
         AnnounceCommand,
         AddAmpDataCommand,
-        StartCommand
+        StartCommand,
+        KillCommand
     ])
 
 client.on('ready', async () => {
