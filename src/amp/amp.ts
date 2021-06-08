@@ -42,5 +42,5 @@ export const startServer = async function (server: MinecraftServer) {
 
 export const killServer = async function (server: MinecraftServer) {
     const API = await getLoggedInClient(server);
-    await API.Core.StartAsync();
+    await API.Core.KillAsync();
 }
